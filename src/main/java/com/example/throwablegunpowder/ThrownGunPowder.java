@@ -11,6 +11,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 
+import static com.example.throwablegunpowder.CustomGunpowderExplosion.levelStartExplode;
 import static com.example.throwablegunpowder.throwablegunpowder.*;
 
 public class ThrownGunPowder extends ThrowableItemProjectile {
@@ -48,6 +49,6 @@ public class ThrownGunPowder extends ThrowableItemProjectile {
 
     protected void boooom() {
 //        this.level.explode(this, this.getX(), this.getY(), this.getZ(), 2.0F, false, Level.ExplosionInteraction.TNT);
-        this.level().explode(this, null, new ExplosionDamageCalculator(), this.getX(), this.getY(), this.getZ(), EXPLOSION_SIZE.get().floatValue(), false, Level.ExplosionInteraction.TNT);
+        levelStartExplode(this, null, new ExplosionDamageCalculator(), this.getX(), this.getY(), this.getZ(), EXPLOSION_SIZE.get().floatValue(), false, Level.ExplosionInteraction.TNT, this.level());
     }
 }
