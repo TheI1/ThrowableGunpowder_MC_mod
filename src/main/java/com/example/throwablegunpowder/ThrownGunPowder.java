@@ -6,6 +6,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.ThrowableItemProjectile;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.ExplosionDamageCalculator;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
@@ -47,6 +48,6 @@ public class ThrownGunPowder extends ThrowableItemProjectile {
 
     protected void boooom() {
 //        this.level.explode(this, this.getX(), this.getY(), this.getZ(), 2.0F, false, Level.ExplosionInteraction.TNT);
-        this.level().explode(this, null, new GunPowderExplosionDamageCalculator(), this.getX(), this.getY(), this.getZ(), EXPLOSION_SIZE.get().floatValue(), false, Level.ExplosionInteraction.TNT);
+        this.level().explode(this, null, new ExplosionDamageCalculator(), this.getX(), this.getY(), this.getZ(), EXPLOSION_SIZE.get().floatValue(), false, Level.ExplosionInteraction.TNT);
     }
 }

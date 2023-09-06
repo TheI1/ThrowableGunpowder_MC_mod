@@ -16,6 +16,7 @@ import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.ProtectionEnchantment;
+import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.DispenserBlock;
@@ -34,6 +35,7 @@ import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.fml.util.ObfuscationReflectionHelper;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -123,10 +125,14 @@ public class throwablegunpowder
     @SubscribeEvent
     public static void onExplosion(ExplosionEvent.Detonate event) {
         // Check if it's a gunpowder explosion or a vanilla explosion
-        if (event.getExplosion() instanceof CustomGunpowderExplosion) {
-            CustomGunpowderExplosion customExplosion = (CustomGunpowderExplosion) event.getExplosion();
+        if (event.getExplosion() instanceof CustomGunpowderExplosion customExplosion) {
             Vec3 explode_pos = customExplosion.getPosition();
-            float f2 = (float) (2.0F * EXPLOSION_SIZE.get());
+            float f2;
+            try {
+                f2 = (float) (2.0F * ObfuscationReflectionHelper.findField(Explosion.class, "p_46058_").getFloat(customExplosion));
+            } catch (IllegalAccessException e) {
+                f2 = (float) (2.0F * EXPLOSION_SIZE.get());
+            }
             List<Entity> list = event.getAffectedEntities();
             Vec3 vec3 = customExplosion.getPosition();
 
@@ -145,7 +151,7 @@ public class throwablegunpowder
                             d9 /= d13;
                             double d14 = (double) getSeenPercent(vec3, entity);
                             double d10 = (1.0D - d12) * d14;
-                            entity.hurt(customExplosion.getDamageSource(), 1F);
+//                            entity.hurt(customExplosion.getDamageSource(), (float)((int)((d10 * d10 + d10) / 2.0D * 7.0D * (double)f2 + 1.0D)));
                             double d11;
                             if (entity instanceof LivingEntity) {
                                 LivingEntity livingentity = (LivingEntity) entity;
