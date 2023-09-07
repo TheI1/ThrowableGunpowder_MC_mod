@@ -16,7 +16,7 @@ public class CustomGunpowderExplosion extends Explosion {
     public static Explosion levelStartExplode(@javax.annotation.Nullable Entity p_256233_, @javax.annotation.Nullable DamageSource p_255861_, @javax.annotation.Nullable ExplosionDamageCalculator p_255867_, double p_256447_, double p_255732_, double p_255717_, float p_256013_, boolean p_256228_, Level.ExplosionInteraction p_255784_, Level level) {
 
         Explosion.BlockInteraction explosion$blockinteraction = level.getGameRules().getBoolean(GameRules.RULE_BLOCK_EXPLOSION_DROP_DECAY) ? Explosion.BlockInteraction.DESTROY_WITH_DECAY : Explosion.BlockInteraction.DESTROY;
-        Explosion explosion = new CustomGunpowderExplosion(level, p_256233_, p_255861_, p_255867_, p_256447_, p_255732_, p_255717_, p_256013_, p_256228_, explosion$blockinteraction);
+        CustomGunpowderExplosion explosion = new CustomGunpowderExplosion(level, p_256233_, p_255861_, p_255867_, p_256447_, p_255732_, p_255717_, p_256013_, p_256228_, explosion$blockinteraction);
         if (net.minecraftforge.event.ForgeEventFactory.onExplosionStart(level, explosion)) return explosion;
         explosion.explode();
         explosion.finalizeExplosion(true);
