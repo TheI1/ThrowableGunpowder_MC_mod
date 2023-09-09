@@ -73,7 +73,6 @@ public class throwablegunpowder
         IEventBus MOD_EVENT_BUS = FMLJavaModLoadingContext.get().getModEventBus();
 
         // Register the commonSetup method for modloading
-        MinecraftForge.EVENT_BUS.register(new EventHandler());
         MOD_EVENT_BUS.addListener(this::commonSetup);
 
         // Register the Deferred Register to the mod event bus so blocks get registered
